@@ -21,12 +21,15 @@ img_tpt = PhotoImage(file='images/tpt.png')
 img_divide = PhotoImage(file='images/divide.png')
 img_zarovka = PhotoImage(file='images/zarovka.png')
 
+
 # List pro ukládání znaků
 char=[]
 
+# Fuknce pro jednotlivá tlačítka
 def OnClick(num):
     input.insert(len(input.get()),num)
     char.append(num)
+
 
 def CharToOneNumber():
     num = '' 
@@ -34,17 +37,26 @@ def CharToOneNumber():
         num = num + char[i]
     return int(num)
 
+def NumberIntoChar(num):
+    num = str(num)
+    for i in range(len(num)):
+        char.append(num[i])
+    return char
+
 def Clear():
     input.delete(len(input.get()) - 1)
     char.pop()
+
 
 def ClearAll():
     input.delete(0, len(input.get()))
     char.clear()
 
+
 def Hint():
     top = Toplevel()
     top.title('Nápověda')
+    top.iconbitmap('images/hint.ico')
     label = Label(top, text='Nápověda pro zajímavé výsledky:', font=(16)).pack()
     txt1 = Label(top, text='Pokus o dělení nulou').pack()
     txt2 = Label(top, text="Libovolné dělení").pack()
@@ -54,6 +66,10 @@ def Hint():
     txt6 = Label(top, text="2+2").pack()
     quit_btn = Button(top, text="Ukončit nápovědu", command=top.destroy).pack()
 
+def ShowChar():
+    print(char)
+
+# Funkce pro počítání faktoriálu
 def OnClickFactorial():
     num = CharToOneNumber()
     char.clear()
@@ -63,6 +79,8 @@ def OnClickFactorial():
     input.delete(0, len(input.get()))
     input.insert(0, result)
 
+
+# Funkce pro počítání odmocnin
 def OnClickSqrt():
     num = CharToOneNumber()
     char.clear()
@@ -75,6 +93,7 @@ def OnClickSqrt():
         input.delete(0, len(input.get()))
         input.insert(0, result)
 
+# Funkce pro vypočítání příkladu + podnínky pro speciální výslekdy
 def Equal():
     if "/0" in input.get():
         Open(img_dbz)
@@ -85,6 +104,7 @@ def Equal():
         Open(img_dnp)
         input.delete(0, len(input.get()))
         input.insert(0, result)
+        NumberIntoChar(result)
     elif result > 10000:
         Open(img_tbr)
         input.delete(0, len(input.get()))
@@ -92,18 +112,20 @@ def Equal():
         Open(img_tpt)
         input.delete(0, len(input.get()))
         input.insert(0, 5)
-        char.append(result)
+        NumberIntoChar(result)
     elif '/' in input.get():
         Open(img_divide)
         input.delete(0, len(input.get()))
         input.insert(0, result)
-        char.append(result)
+        NumberIntoChar(result)
     else:
         input.delete(0, len(input.get()))
         input.insert(0, result)
         char.clear()
-        char.append(result)
-    
+        NumberIntoChar(result)
+
+
+# Funkce pro otevírání nového okna s obrázkem
 def Open(img):
     top = Toplevel()
     label = Label(top, image=img)
@@ -126,7 +148,7 @@ y = 20
 # Vytvoření tlačítek
 btn_clear = Button(frame, text='C', command=Clear, padx=39, pady=y)
 btn_clearAll = Button(frame, text='AC', command=ClearAll, padx=35, pady=y)
-btn_hint = Button(frame, image=img_zarovka, command=Hint)
+btn_hint = Button(frame, image=img_zarovka, command=ShowChar)
 
 btn_1 = Button(frame, text='1', command=lambda: OnClick('1'), padx=x, pady=y)
 btn_2 = Button(frame, text='2', command=lambda: OnClick('2'), padx=x, pady=y)
