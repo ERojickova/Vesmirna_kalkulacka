@@ -133,7 +133,7 @@ def Open(img):
     char.clear()
 
 
-# Vytvoření boxíku pro lepší responsibilitu
+# Vytvoření rámečku pro lepší responsibilitu
 frame = LabelFrame(root, text="Vesmírná kalkulačka", padx=15, pady=15)
 frame.pack(padx=10, pady=5)
 
