@@ -6,6 +6,7 @@ from math import nan, sqrt
 root = Tk()
 root.title("Kalkulačka")
 root.iconbitmap('images/icon.ico')
+root.geometry('800x600')
 
 # Zobrazení obrázku na pozadí
 bg = PhotoImage(file = "images/vesmir.png")
