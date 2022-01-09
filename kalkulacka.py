@@ -41,24 +41,24 @@ def NumberIntoChar(num):
     return char
 
 
-# Fuknce pro jednotlivá tlačítka
+# Funkce pro jednotlivá tlačítka
 
-
+# Přidání znaku do input pole
 def OnClick(num):
     input.insert(len(input.get()),num)
     char.append(num)
 
-
+# Smazání posledního znaku
 def Clear():
     input.delete(len(input.get()) - 1)
     char.pop()
 
-
+# Smazání celého vstupního pole
 def ClearAll():
     input.delete(0, len(input.get()))
     char.clear()
 
-
+# Zobrazení nápovědy
 def Hint():
     top = Toplevel()
     top.title('Nápověda')
@@ -99,7 +99,11 @@ def OnClickSqrt():
         input.insert(0, result)
         NumberIntoChar(result)
 
-# Funkce pro vypočítání příkladu + podmínky pro speciální výsledky
+''' 
+Funkce pro vypočítání příkladu + podmínky pro speciální výsledky
+Specíální výsledky:
+    * 42; > 10 000; 2+2; /0; /n; sqrt(n<0)
+'''
 def Equal():
     if "/0" in input.get():
         Open(img_dbz)
