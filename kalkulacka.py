@@ -25,23 +25,29 @@ img_zarovka = PhotoImage(file='images/zarovka.png')
 # List pro ukládání znaků
 char=[]
 
-# Fuknce pro jednotlivá tlačítka
-def OnClick(num):
-    input.insert(len(input.get()),num)
-    char.append(num)
 
-
+#Převedení listu na číslo
 def CharToOneNumber():
     num = '' 
     for i in range(len(char)):
         num = num + char[i]
     return int(num)
 
+# Převedení čísla na list
 def NumberIntoChar(num):
     num = str(num)
     for i in range(len(num)):
         char.append(num[i])
     return char
+
+
+# Fuknce pro jednotlivá tlačítka
+
+
+def OnClick(num):
+    input.insert(len(input.get()),num)
+    char.append(num)
+
 
 def Clear():
     input.delete(len(input.get()) - 1)
@@ -66,8 +72,6 @@ def Hint():
     txt6 = Label(top, text="2+2").pack()
     quit_btn = Button(top, text="Ukončit nápovědu", command=top.destroy).pack()
 
-def ShowChar():
-    print(char)
 
 # Funkce pro počítání faktoriálu
 def OnClickFactorial():
@@ -78,6 +82,7 @@ def OnClickFactorial():
         result = result * i
     input.delete(0, len(input.get()))
     input.insert(0, result)
+    NumberIntoChar(result)
 
 
 # Funkce pro počítání odmocnin
@@ -92,8 +97,9 @@ def OnClickSqrt():
         result = sqrt(num)
         input.delete(0, len(input.get()))
         input.insert(0, result)
+        NumberIntoChar(result)
 
-# Funkce pro vypočítání příkladu + podnínky pro speciální výslekdy
+# Funkce pro vypočítání příkladu + podmínky pro speciální výsledky
 def Equal():
     if "/0" in input.get():
         Open(img_dbz)
@@ -141,37 +147,37 @@ frame.pack(padx=10, pady=5)
 input = Entry(frame, width=50, borderwidth=5)
 input.grid(row=0, column=0, columnspan=3, pady=5)
 
-# šířka a výška paddingu tlačítek
-x = 40
-y = 20
+# šířka a výška tlačítek
+x = 8
+y = 2
 
 # Vytvoření tlačítek
-btn_clear = Button(frame, text='C', command=Clear, padx=39, pady=y)
-btn_clearAll = Button(frame, text='AC', command=ClearAll, padx=35, pady=y)
-btn_hint = Button(frame, image=img_zarovka, command=ShowChar)
+btn_clear = Button(frame, text='C', command=Clear, width=x, height=y, font=('Arial, 15'))
+btn_clearAll = Button(frame, text='AC', command=ClearAll, width=x, height=y, font=("Arial, 15"))
+btn_hint = Button(frame, image=img_zarovka, command=Hint)
 
-btn_1 = Button(frame, text='1', command=lambda: OnClick('1'), padx=x, pady=y)
-btn_2 = Button(frame, text='2', command=lambda: OnClick('2'), padx=x, pady=y)
-btn_3 = Button(frame, text='3', command=lambda: OnClick('3'), padx=x, pady=y)
+btn_1 = Button(frame, text='1', command=lambda: OnClick('1'), width=x, height=y, font=('Arial, 15'))
+btn_2 = Button(frame, text='2', command=lambda: OnClick('2'), width=x, height=y, font=('Arial, 15'))
+btn_3 = Button(frame, text='3', command=lambda: OnClick('3'), width=x, height=y, font=('Arial, 15'))
 
-btn_4 = Button(frame, text='4', command=lambda: OnClick('4'), padx=x, pady=y)
-btn_5 = Button(frame, text='5', command=lambda: OnClick('5'), padx=x, pady=y)
-btn_6 = Button(frame, text='6', command=lambda: OnClick('6'), padx=x, pady=y)
+btn_4 = Button(frame, text='4', command=lambda: OnClick('4'), width=x, height=y, font=('Arial, 15'))
+btn_5 = Button(frame, text='5', command=lambda: OnClick('5'), width=x, height=y, font=('Arial, 15'))
+btn_6 = Button(frame, text='6', command=lambda: OnClick('6'), width=x, height=y, font=('Arial, 15'))
 
-btn_7 = Button(frame, text='7', command=lambda: OnClick('7'), padx=x, pady=y)
-btn_8 = Button(frame, text='8', command=lambda: OnClick('8'), padx=x, pady=y)
-btn_9 = Button(frame, text='9', command=lambda: OnClick('9'), padx=x, pady=y)
+btn_7 = Button(frame, text='7', command=lambda: OnClick('7'), width=x, height=y, font=('Arial, 15'))
+btn_8 = Button(frame, text='8', command=lambda: OnClick('8'), width=x, height=y, font=('Arial, 15'))
+btn_9 = Button(frame, text='9', command=lambda: OnClick('9'), width=x, height=y, font=('Arial, 15'))
 
-btn_0 = Button(frame, text='0', command=lambda: OnClick('0'), padx=x, pady=y)
-btn_plus = Button(frame, text='+', command=lambda: OnClick('+'), padx=x, pady=y)
-btn_minus = Button(frame, text='-', command=lambda: OnClick('-'), padx=x, pady=y)
+btn_0 = Button(frame, text='0', command=lambda: OnClick('0'), width=x, height=y, font=('Arial, 15'))
+btn_plus = Button(frame, text='+', command=lambda: OnClick('+'), width=x, height=y, font=('Arial, 15'))
+btn_minus = Button(frame, text='-', command=lambda: OnClick('-'), width=x, height=y, font=('Arial, 15'))
 
-btn_mul = Button(frame, text='*', command=lambda: OnClick('*'), padx=x, pady=y)
-btn_div = Button(frame, text='/', command=lambda: OnClick('/'), padx=x, pady=y)
-btn_factorial = Button(frame, text='!', command=OnClickFactorial, padx=41, pady=y)
-btn_sqrt = Button(frame, text="√", command=OnClickSqrt, padx=39, pady=y)
+btn_mul = Button(frame, text='*', command=lambda: OnClick('*'), width=x, height=y, font=('Arial, 15'))
+btn_div = Button(frame, text='/', command=lambda: OnClick('/'), width=x, height=y, font=('Arial, 15'))
+btn_factorial = Button(frame, text='!', command=OnClickFactorial, width=x, height=y, font=('Arial, 15'))
+btn_sqrt = Button(frame, text="√", command=OnClickSqrt, width=x, height=y, font=('Arial, 15'))
 
-btn_equal = Button(frame, text='=', command=Equal, padx=x, pady=52)
+btn_equal = Button(frame, text='=', command=Equal, width=x, height=5, font=('Arial, 15'))
 
 
 # Zobrazení tlačítek
@@ -201,6 +207,5 @@ btn_div.grid(row=6, column=2)
 
 btn_factorial.grid(row=7, column=1)
 btn_sqrt.grid(row=7, column=2)
-
 
 root.mainloop()
