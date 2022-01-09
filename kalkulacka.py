@@ -1,6 +1,6 @@
 from tkinter import *
 from PIL import Image, ImageTk
-from math import sqrt
+from math import nan, sqrt
 
 # Vytvoření okna
 root = Tk()
@@ -20,7 +20,6 @@ img_complex = PhotoImage(file='images/complex.png')
 img_tpt = PhotoImage(file='images/tpt.png')
 img_divide = PhotoImage(file='images/divide.png')
 img_zarovka = PhotoImage(file='images/zarovka.png')
-
 
 # List pro ukládání znaků
 char=[]
@@ -80,9 +79,13 @@ def OnClickFactorial():
     result = 1
     for i in range(1, num+1):
         result = result * i
-    input.delete(0, len(input.get()))
-    input.insert(0, result)
-    NumberIntoChar(result)
+    if result > 10000:
+        Open(img_tbr)
+        input.delete(0, len(input.get()))
+    else:
+        input.delete(0, len(input.get()))
+        input.insert(0, result)
+        NumberIntoChar(result)
 
 
 # Funkce pro počítání odmocnin
@@ -99,40 +102,42 @@ def OnClickSqrt():
         input.insert(0, result)
         NumberIntoChar(result)
 
-''' 
+
+"""
 Funkce pro vypočítání příkladu + podmínky pro speciální výsledky
 Specíální výsledky:
     * 42; > 10 000; 2+2; /0; /n; sqrt(n<0)
-'''
+""" 
+
 def Equal():
     if "/0" in input.get():
         Open(img_dbz)
         input.delete(0, len(input.get()))
     else:
         result = eval(input.get())
-    if result == 42:
-        Open(img_dnp)
-        input.delete(0, len(input.get()))
-        input.insert(0, result)
-        NumberIntoChar(result)
-    elif result > 10000:
-        Open(img_tbr)
-        input.delete(0, len(input.get()))
-    elif char == ['2', '+', '2']:
-        Open(img_tpt)
-        input.delete(0, len(input.get()))
-        input.insert(0, 5)
-        NumberIntoChar(result)
-    elif '/' in input.get():
-        Open(img_divide)
-        input.delete(0, len(input.get()))
-        input.insert(0, result)
-        NumberIntoChar(result)
-    else:
-        input.delete(0, len(input.get()))
-        input.insert(0, result)
-        char.clear()
-        NumberIntoChar(result)
+        if result == 42:
+            Open(img_dnp)
+            input.delete(0, len(input.get()))
+            input.insert(0, result)
+            NumberIntoChar(result)
+        elif result > 10000:
+            Open(img_tbr)
+            input.delete(0, len(input.get()))
+        elif char == ['2', '+', '2']:
+            Open(img_tpt)
+            input.delete(0, len(input.get()))
+            input.insert(0, 5)
+            NumberIntoChar(result)
+        elif '/' in input.get():
+            Open(img_divide)
+            input.delete(0, len(input.get()))
+            input.insert(0, result)
+            NumberIntoChar(result)
+        else:
+            input.delete(0, len(input.get()))
+            input.insert(0, result)
+            char.clear()
+            NumberIntoChar(result)
 
 
 # Funkce pro otevírání nového okna s obrázkem
